@@ -1,5 +1,5 @@
 <!ELEMENT requests (request)+>
-        <!ELEMENT request (clientId , requestId , name , quantity , price)>
+        <!ELEMENT request (clientId? , requestId? , name? , quantity? , price?)>
         <!ELEMENT clientId (#PCDATA)*>
         <!ELEMENT requestId (#PCDATA)>
         <!ELEMENT name (#PCDATA)>
