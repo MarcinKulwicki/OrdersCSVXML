@@ -3,6 +3,7 @@ package com.marcinkulwicki.service;
 
 import com.marcinkulwicki.dto.Order;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -99,26 +100,49 @@ public class OrderService {
         }
     }
 
-    public String readXMLFile(String fileName){
+    public List<Order> readXMLFile(String fileName) {
+
+        String xml = convertXMLFileToString(fileName);
+
+        String[] ordersTab = xml.split("</request>");
+        List<Order> orders = new ArrayList<>();
+
+        for (int i = 0; i < ordersTab.length; i++) {
+
+            orders.add(
+                    new Order(
+                            ordersTab[i].substring(ordersTab[i].indexOf("<clientId>") + 10, ordersTab[i].indexOf("</clientId>")),
+                            ordersTab[i].substring(ordersTab[i].indexOf("<requestId>") + 11, ordersTab[i].indexOf("</requestId>")),
+                            ordersTab[i].substring(ordersTab[i].indexOf("<name>") + 6, ordersTab[i].indexOf("</name>")),
+                            ordersTab[i].substring(ordersTab[i].indexOf("<quantity>") + 10, ordersTab[i].indexOf("</quantity>")),
+                            ordersTab[i].substring(ordersTab[i].indexOf("<price>") + 7, ordersTab[i].indexOf("</price>"))
+                    )
+            );
+        }
+        return orders;
+    }
+
+    private String convertXMLFileToString(String fileName) {
 
         StringBuilder sb = new StringBuilder();
 
-        File file = new File("./XML/"+fileName+".xml");
+        File file = new File("./XML/" + fileName + ".xml");
         try (Scanner scanner = new Scanner(file)) {
 
-            while (scanner.hasNextLine()){
-                sb.append(scanner.nextLine()+"\n");
+            while (scanner.hasNextLine()) {
+                sb.append(scanner.nextLine() + "\n");
             }
-        }catch (FileNotFoundException e){
-            System.out.println("File not found in OrderService->readXMLFile: "+e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found in OrderService->readXMLFile: " + e.getMessage());
         }
-
-        return sb.toString();
+        int begin = sb.toString().indexOf("<requests>");
+        int end = sb.toString().indexOf("</requests>");
+        return (sb.toString().substring(begin + 15, end - 1).replaceAll(" ", "").replaceAll("\n", ""));
     }
 
 
-    public static boolean validateXMLFile(String xmlFileName){
-        try{
+    public static boolean validateXMLFile(String xmlFileName) {
+        try {
             DOMParser parser = new DOMParser();
             parser.setFeature("http://xml.org/sax/features/validation", true);
             parser.setProperty(
@@ -128,23 +152,23 @@ public class OrderService {
             ErrorHandler errors = new ErrorHandler() {
                 @Override
                 public void warning(SAXParseException exception) throws SAXException {
-                    System.out.println("WARRING: "+exception.getMessage());
+                    System.out.println("WARRING: " + exception.getMessage());
                 }
 
                 @Override
                 public void error(SAXParseException exception) throws SAXException {
-                    System.out.println("ERROR: "+exception.getMessage());
+                    System.out.println("ERROR: " + exception.getMessage());
                 }
 
                 @Override
                 public void fatalError(SAXParseException exception) throws SAXException {
-                    System.out.println("FATAL ERROR: "+exception.getMessage());
+                    System.out.println("FATAL ERROR: " + exception.getMessage());
                 }
             };
             parser.setErrorHandler(errors);
-            parser.parse("./XML/"+xmlFileName+".xml");
+            parser.parse("./XML/" + xmlFileName + ".xml");
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.print("Problem parsing the file.");
             return false;
         }

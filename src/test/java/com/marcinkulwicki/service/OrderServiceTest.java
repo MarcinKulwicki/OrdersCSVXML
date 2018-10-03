@@ -113,4 +113,22 @@ public class OrderServiceTest {
         }
 
     }
+
+    @Test
+    public void generateCSVFileFromListOrders() {
+    }
+
+    @Test
+    public void readXMLFileTest() {
+
+        OrderService orderService = new OrderService();
+        List<Order> orders = orderService.readXMLFile("starter");
+
+        assertEquals("Bułka", orders.get(0).getName());
+        assertEquals(2, orders.get(1).getQuantity());
+        assertEquals(2, orders.get(3).getClientId());
+        assertEquals(4, orders.size());
+
+    }
+
 }

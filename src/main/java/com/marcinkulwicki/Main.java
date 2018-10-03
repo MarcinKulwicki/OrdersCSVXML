@@ -2,6 +2,7 @@ package com.marcinkulwicki;
 
 import com.marcinkulwicki.dto.Order;
 import com.marcinkulwicki.service.OrderService;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class Main {
 
 
             System.out.println(OrderService.validateXMLFile("starter"));
+            List<Order> ordersXML = orderService.readXMLFile("starter");
 
 
     }
