@@ -14,5 +14,10 @@ public class Main {
         List<Order> orders = orderService.loadOrdersFromCSVFile("starter");
         orderService.showOrders(orders);
 
+
+
+            System.out.println(OrderService.validateXMLFile("starter"));
+
+
     }
 }
