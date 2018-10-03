@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE requests SYSTEM "./order.dtd">
+<requests>
+    <request>
+        <clientId>1</clientId>
+        <requestId>5</requestId>
+        <name>Bułka</name>
+        <quantity>2</quantity>
+        <price>11.0</price>
+    </request>
+    <request>
+        <clientId>1</clientId>
+        <requestId>5</requestId>
+        <name>Bułka</name>
+        <quantity>2</quantity>
+        <price>11.0</price>
+    </request>
+    <request>
+        <clientId>1</clientId>
+        <requestId>5</requestId>
+        <name>Bułka</name>
+        <quantity>2</quantity>
+        <price>11.0</price>
+    </request>
+</requests>

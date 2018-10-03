@@ -3,15 +3,10 @@ package com.marcinkulwicki.service;
 
 import com.marcinkulwicki.dto.Order;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
-import com.sun.org.apache.xpath.internal.operations.Or;
 import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -36,7 +31,7 @@ public class OrderService {
     }
 
     //NotTested
-    public List<Order> loadOrdersFromCSVFile(String fileName) {
+    public List<Order> readCSVFile(String fileName) {
 
         List<Order> orders = new ArrayList<>();
         int counter = 1;
@@ -102,6 +97,8 @@ public class OrderService {
 
     public List<Order> readXMLFile(String fileName) {
 
+        if(validateXMLFile(fileName) == false) return null;
+
         String xml = convertXMLFileToString(fileName);
 
         String[] ordersTab = xml.split("</request>");
@@ -141,7 +138,7 @@ public class OrderService {
     }
 
 
-    public static boolean validateXMLFile(String xmlFileName) {
+    public boolean validateXMLFile(String xmlFileName) {
         try {
             DOMParser parser = new DOMParser();
             parser.setFeature("http://xml.org/sax/features/validation", true);
@@ -174,5 +171,59 @@ public class OrderService {
         }
         return true;
     }
+
+    public void generateXMLFileFromListOrders(String fileName, List<Order> orders) {
+
+        try (FileWriter fileWriter = new FileWriter("./XML/" + fileName + ".xml", false)){
+
+            fileWriter.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n");
+            fileWriter.append("<!DOCTYPE requests SYSTEM \"./order.dtd\">\n");
+
+            fileWriter.append("<requests>\n");
+            for(int i = 0 ; i < orders.size() ; i++){
+                fileWriter.append("    <request>\n");
+
+                fileWriter.append("        <clientId>"+orders.get(i).getClientId()+"</clientId>\n");
+                fileWriter.append("        <requestId>"+orders.get(i).getRequestId()+"</requestId>\n");
+                fileWriter.append("        <name>"+orders.get(i).getName()+"</name>\n");
+                fileWriter.append("        <quantity>"+orders.get(i).getQuantity()+"</quantity>\n");
+                fileWriter.append("        <price>"+orders.get(i).getPrice()+"</price>\n");
+
+                fileWriter.append("    </request>\n");
+            }
+            fileWriter.append("</requests>\n");
+
+        }catch (IOException e){
+            System.out.println("ERROR in generate XML file in OrderService: "+e.getMessage());
+        }
+    }
+
+    public List<Order> loadFiles(String...args){
+
+        List<Order> orders = new ArrayList<>();
+
+        for(int i = 0 ; i < args.length ; i++){
+
+            System.out.println(args[i].substring(args[i].length()-4));
+            System.out.println(args[i].substring(0, args[i].length()-4));
+
+            if(args[i].substring(args[i].length()-4).equalsIgnoreCase(".xml")){
+                orders = addOrdersToOrderList(orders, readXMLFile(args[i].substring(0, args[i].length()-4)));
+            }else if (args[i].substring(args[i].length()-4).equalsIgnoreCase(".csv")){
+                orders = addOrdersToOrderList(orders, readCSVFile(args[i].substring(0, args[i].length()-4)));
+            }
+
+        }
+        return orders;
+    }
+
+    private List<Order> addOrdersToOrderList(List<Order> orders, List<Order> ordersFromFile) {
+        Iterator<Order> iterator = ordersFromFile.iterator();
+        while (iterator.hasNext()){
+            orders.add(iterator.next());
+        }
+        return orders;
+    }
+
 
 }

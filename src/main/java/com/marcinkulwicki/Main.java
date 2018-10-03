@@ -12,13 +12,13 @@ public class Main {
 
 
         OrderService orderService = new OrderService();
-        List<Order> orders = orderService.loadOrdersFromCSVFile("starter");
-        orderService.showOrders(orders);
 
 
 
-            System.out.println(OrderService.validateXMLFile("starter"));
-            List<Order> ordersXML = orderService.readXMLFile("starter");
+
+        List<Order> orderList = orderService.loadFiles("starter.xml" , "test.xml", "starter.CSV");
+
+        System.out.println("");
 
 
     }

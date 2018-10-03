@@ -77,7 +77,7 @@ public class OrderServiceTest {
         OrderService orderService = new OrderService();
         orderService.generateCSVFileFromListOrders("test", orders);
 
-        List<Order> ordersReaded = orderService.loadOrdersFromCSVFile("test");
+        List<Order> ordersReaded = orderService.readCSVFile("test");
 
         assertEquals(2, ordersReaded.size());
         assertEquals("Bułka", ordersReaded.get(0).getName());
@@ -118,8 +118,8 @@ public class OrderServiceTest {
     public void generateCSVFileFromListOrders() {
     }
 
-    @Test
-    public void readXMLFileTest() {
+    @Test(expected = NullPointerException.class)
+    public void readXMLFileTest() throws NullPointerException {
 
         OrderService orderService = new OrderService();
         List<Order> orders = orderService.readXMLFile("starter");
@@ -131,4 +131,19 @@ public class OrderServiceTest {
 
     }
 
+
+    @Test
+    public void generateXMLFileFromListOrdersTest() {
+
+        Order order = new Order("1", "5" , "Bułka" , "2","11.0");
+        List<Order> orders = new ArrayList<>();
+        orders.add(order);
+        orders.add(order);
+        orders.add(order);
+
+        OrderService orderService = new OrderService();
+        orderService.generateXMLFileFromListOrders("test", orders);
+
+        assertEquals(true, orderService.validateXMLFile("test"));
+    }
 }
