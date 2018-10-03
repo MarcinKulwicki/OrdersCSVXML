@@ -1,6 +1,9 @@
 package com.marcinkulwicki;
 
+import com.marcinkulwicki.dto.Order;
 import com.marcinkulwicki.service.OrderService;
+
+import java.util.List;
 
 public class Main {
 
@@ -8,7 +11,8 @@ public class Main {
 
 
         OrderService orderService = new OrderService();
-        orderService.loadOrdersFromCSVFile("starter");
+        List<Order> orders = orderService.loadOrdersFromCSVFile("starter");
+        orderService.showOrders(orders);
 
     }
 }

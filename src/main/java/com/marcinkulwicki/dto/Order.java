@@ -2,10 +2,15 @@ package com.marcinkulwicki.dto;
 
 public class Order {
 
+    //Client_Id
     private int clientId; // not longer than 6 char
+    //Request_Id
     private long requestId;
+    //Name
     private String name; // not longer than 255 char
+    //Quantity
     private int quantity;
+    //Price
     private Double price;
 
 
@@ -20,6 +25,11 @@ public class Order {
         setName(name);
         setQuantity(quantity);
         setPrice(price);
+    }
+
+    @Override
+    public String toString() {
+        return this.clientId+" "+this.requestId+" "+this.name+" "+this.quantity+" "+this.price;
     }
 
     public void setClientId(String clientId) throws NumberFormatException, VerifyError {

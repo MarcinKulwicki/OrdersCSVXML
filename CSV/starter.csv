@@ -1,4 +1,4 @@
-Client_Id,Request_id,Name,Quantity,Price
+Client_Id,Request_Id,Name,Quantity,Price
 1,1,Bułka,1,10.00
 1,1,Chleb,2,15.00
 1,2,Chleb,5,15.00
