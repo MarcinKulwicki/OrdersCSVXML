@@ -30,7 +30,6 @@ public class OrderService {
         return orderFromLine;
     }
 
-    //NotTested
     public List<Order> readCSVFile(String fileName) {
 
         List<Order> orders = new ArrayList<>();
@@ -47,11 +46,11 @@ public class OrderService {
                     counter++;
                 } catch (VerifyError e) {
                     if (counter > 1) {
-                        System.out.println(e.getMessage() + " Error in line " + counter);
+                        System.out.println(e.getMessage() + " Error in line " + counter + " in "+fileName+".csv");
                     }
                     counter++;
                 } catch (NumberFormatException e) {
-                    System.out.println(e.getMessage() + " Error in line " + counter);
+                    System.out.println(e.getMessage() + " Error in line " + counter + " in "+fileName+".csv");
                     counter++;
                 }
 
@@ -61,13 +60,6 @@ public class OrderService {
         }
 
         return orders;
-    }
-
-    public void showOrders(List<Order> orders) {
-        Iterator<Order> it = orders.iterator();
-        while (it.hasNext()) {
-            System.out.println(it.next().toString());
-        }
     }
 
     public List<Order> addOrderToList(List<Order> orders, Order order) {
@@ -138,7 +130,7 @@ public class OrderService {
     }
 
 
-    public boolean validateXMLFile(String xmlFileName) {
+    public static boolean validateXMLFile(String xmlFileName) {
         try {
             DOMParser parser = new DOMParser();
             parser.setFeature("http://xml.org/sax/features/validation", true);
@@ -203,9 +195,6 @@ public class OrderService {
         List<Order> orders = new ArrayList<>();
 
         for(int i = 0 ; i < args.length ; i++){
-
-            System.out.println(args[i].substring(args[i].length()-4));
-            System.out.println(args[i].substring(0, args[i].length()-4));
 
             if(args[i].substring(args[i].length()-4).equalsIgnoreCase(".xml")){
                 orders = addOrdersToOrderList(orders, readXMLFile(args[i].substring(0, args[i].length()-4)));

@@ -2,7 +2,7 @@ package com.marcinkulwicki;
 
 import com.marcinkulwicki.dto.Order;
 import com.marcinkulwicki.service.OrderService;
-import com.sun.org.apache.xpath.internal.operations.Or;
+import com.marcinkulwicki.service.OrderServiceReports;
 
 import java.util.List;
 
@@ -12,13 +12,16 @@ public class Main {
 
 
         OrderService orderService = new OrderService();
+        OrderServiceReports orderServiceReports = new OrderServiceReports();
 
 
 
 
-        List<Order> orderList = orderService.loadFiles("starter.xml" , "test.xml", "starter.CSV");
+        List<Order> orderList = orderService.loadFiles( "starter.CSV" , "starter.xml" , "test.xml");
 
-        System.out.println("");
+        orderServiceReports.showOrders(orderList,"1");
+
+
 
 
     }

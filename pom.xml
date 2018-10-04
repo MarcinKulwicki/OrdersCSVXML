@@ -17,8 +17,22 @@
                     <target>7</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <version>1.10</version>
+                <configuration>
+                    <programs>
+                        <program>
+                            <mainClass>com.marcinkulwicki.Main</mainClass>
+                            <id>compile</id>
+                        </program>
+                    </programs>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
 
     <dependencies>
         <dependency>

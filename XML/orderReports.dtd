@@ -1,0 +1,5 @@
+<!ELEMENT requests (request)+>
+        <!ELEMENT request (ordersNumber? , ordersCost? , averageCost?)>
+        <!ELEMENT ordersNumber (#PCDATA)*>
+        <!ELEMENT ordersCost (#PCDATA)*>
+        <!ELEMENT averageCost (#PCDATA)*>

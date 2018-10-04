@@ -46,14 +46,6 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void loadOrdersFromCSVFile() {
-    }
-
-    @Test
-    public void showOrders() {
-    }
-
-    @Test
     public void addOrderToList() {
         Order order = new Order("1","1","Bulka","1","10.00");
         List<Order> orders = new ArrayList<>();
@@ -67,7 +59,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void generateCSVFileFromListOrdersTest() {
+    public void generateCSVFileFromListOrders() {
 
         Order order = new Order("2","3","Bułka","1","10.20");
         List<Order> orders = new ArrayList<>();
@@ -91,7 +83,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void generateCSVFileFromListOrdersTestFirstLine() {
+    public void generateCSVFileFromListOrdersFirstLine() {
 
         Order order = new Order("2","3","Bułka","1","10.20");
         List<Order> orders = new ArrayList<>();
@@ -115,11 +107,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void generateCSVFileFromListOrders() {
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void readXMLFileTest() throws NullPointerException {
+    public void readXMLFile() {
 
         OrderService orderService = new OrderService();
         List<Order> orders = orderService.readXMLFile("starter");
@@ -133,7 +121,7 @@ public class OrderServiceTest {
 
 
     @Test
-    public void generateXMLFileFromListOrdersTest() {
+    public void generateXMLFileFromListOrders() {
 
         Order order = new Order("1", "5" , "Bułka" , "2","11.0");
         List<Order> orders = new ArrayList<>();
@@ -144,6 +132,28 @@ public class OrderServiceTest {
         OrderService orderService = new OrderService();
         orderService.generateXMLFileFromListOrders("test", orders);
 
-        assertEquals(true, orderService.validateXMLFile("test"));
+        assertTrue(OrderService.validateXMLFile("test"));
+    }
+
+    @Test
+    public void readCSVFile() {
+
+        OrderService orderService = new OrderService();
+        List<Order> orders = orderService.readCSVFile("starter");
+
+        assertEquals("Bułka", orders.get(0).getName());
+        assertEquals(2, orders.get(1).getQuantity());
+        assertEquals(2, orders.get(3).getClientId());
+        assertEquals(4, orders.size());
+    }
+
+    @Test
+    public void loadFiles() {
+
+        OrderService orderService = new OrderService();
+
+        List<Order> orderList = orderService.loadFiles("starter.xml" , "test.xml", "starter.CSV");
+
+        assertEquals(11, orderList.size());
     }
 }

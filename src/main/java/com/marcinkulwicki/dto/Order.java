@@ -13,9 +13,16 @@ public class Order {
     //Price
     private Double price;
 
+    //Reports
+    private long allOrders;
+    private Double allCost;
+    private Double averageCost;
 
-    public Order() {
+    //Constructors
+    public Order() { }
 
+    public Order(String clientId){
+        setClientId(clientId);
     }
 
     public Order(String clientId, String requestId, String name, String quantity, String price) throws NumberFormatException, VerifyError {
@@ -27,23 +34,7 @@ public class Order {
         setPrice(price);
     }
 
-    @Override
-    public String toString() {
-        return this.clientId+" "+this.requestId+" "+this.name+" "+this.quantity+" "+this.price;
-    }
-
-    public void setClientId(String clientId) throws NumberFormatException, VerifyError {
-        if (clientId.length() > 6) {
-            throw new VerifyError("Client id is too long, should be not longer than 6 char");
-        } else {
-            try {
-                this.clientId = Integer.parseInt(clientId);
-            } catch (NumberFormatException e) {
-                throw new NumberFormatException("Client id is not a number");
-            }
-        }
-    }
-
+    //Setter and Getters
     public void setRequestId(String requestId) throws NumberFormatException {
         try {
             this.requestId = Long.parseLong(requestId);
@@ -80,6 +71,18 @@ public class Order {
         }
     }
 
+    public void setAllOrders(long allOrders) {
+        this.allOrders = allOrders;
+    }
+
+    public void setAllCost(Double allCost) {
+        this.allCost = allCost;
+    }
+
+    public void setAverageCost(Double averageCost) {
+        this.averageCost = averageCost;
+    }
+
     public int getClientId() {
         return clientId;
     }
@@ -98,5 +101,35 @@ public class Order {
 
     public Double getPrice() {
         return price;
+    }
+
+    public long getAllOrders() {
+        return allOrders;
+    }
+
+    public Double getAllCost() {
+        return allCost;
+    }
+
+    public Double getAverageCost() {
+        return averageCost;
+    }
+
+    //toString
+    @Override
+    public String toString() {
+        return this.clientId+" "+this.requestId+" "+this.name+" "+this.quantity+" "+this.price;
+    }
+
+    public void setClientId(String clientId) throws NumberFormatException, VerifyError {
+        if (clientId.length() > 6) {
+            throw new VerifyError("Client id is too long, should be not longer than 6 char");
+        } else {
+            try {
+                this.clientId = Integer.parseInt(clientId);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("Client id is not a number");
+            }
+        }
     }
 }

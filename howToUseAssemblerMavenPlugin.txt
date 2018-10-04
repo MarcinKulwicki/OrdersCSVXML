@@ -1,0 +1,10 @@
+http://www.mojohaus.org/appassembler/appassembler-maven-plugin/usage-program.html
+
+$ mvn package appassembler:assemble
+...
+$ sh target/appassembler/bin/app
+Hello World!
+
+important
+<mainClass>com.mycompany.app.App</mainClass>
+<id>app</id>
