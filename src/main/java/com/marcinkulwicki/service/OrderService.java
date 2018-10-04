@@ -190,16 +190,16 @@ public class OrderService {
         }
     }
 
-    public List<Order> loadFiles(String...args){
+    public List<Order> loadFiles(List<String> args){
 
         List<Order> orders = new ArrayList<>();
 
-        for(int i = 0 ; i < args.length ; i++){
+        for(int i = 0 ; i < args.size() ; i++){
 
-            if(args[i].substring(args[i].length()-4).equalsIgnoreCase(".xml")){
-                orders = addOrdersToOrderList(orders, readXMLFile(args[i].substring(0, args[i].length()-4)));
-            }else if (args[i].substring(args[i].length()-4).equalsIgnoreCase(".csv")){
-                orders = addOrdersToOrderList(orders, readCSVFile(args[i].substring(0, args[i].length()-4)));
+            if(args.get(i).substring(args.get(i).length()-4).equalsIgnoreCase(".xml")){
+                orders = addOrdersToOrderList(orders, readXMLFile(args.get(i).substring(0, args.get(i).length()-4)));
+            }else if (args.get(i).substring(args.get(i).length()-4).equalsIgnoreCase(".csv")){
+                orders = addOrdersToOrderList(orders, readCSVFile(args.get(i).substring(0, args.get(i).length()-4)));
             }
 
         }

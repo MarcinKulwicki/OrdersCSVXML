@@ -152,7 +152,11 @@ public class OrderServiceTest {
 
         OrderService orderService = new OrderService();
 
-        List<Order> orderList = orderService.loadFiles("starter.xml" , "test.xml", "starter.CSV");
+        List<String> strings = new ArrayList<>();
+        strings.add("starter.xml");
+        strings.add("test.xml");
+        strings.add("starter.CSV");
+        List<Order> orderList = orderService.loadFiles(strings);
 
         assertEquals(11, orderList.size());
     }
