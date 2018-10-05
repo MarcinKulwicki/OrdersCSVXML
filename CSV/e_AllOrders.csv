@@ -1,0 +1,14 @@
+Client_Id,Request_Id,Name,Quantity,Price
+1,1,Bułka,1,10.0
+1,1,Chleb,2,15.0
+1,2,Chleb,5,15.0
+2,1,Chleb,1,10.0
+1,1,Bułka,1,10.0
+1,2,Chleb,2,15.0
+1,2,Chleb,5,15.0
+2,1,Chleb,1,10.0
+4,2,Łosoś,12,352.2
+5,1,Makrela,1,32.26
+6,3,Mintaj,2,52.6
+6,5,Dorsz,8,13.8
+7,1,Korniszon,100,100.2

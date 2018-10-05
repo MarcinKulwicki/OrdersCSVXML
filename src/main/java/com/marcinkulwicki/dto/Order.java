@@ -25,13 +25,14 @@ public class Order {
         setClientId(clientId);
     }
 
-    public Order(String clientId, String requestId, String name, String quantity, String price) throws NumberFormatException, VerifyError {
+    public Order(String clientId, String requestId, String name, String quantity, String price) throws NumberFormatException, VerifyError{
 
-        setClientId(clientId);
-        setRequestId(requestId);
-        setName(name);
-        setQuantity(quantity);
-        setPrice(price);
+            setClientId(clientId);
+            setRequestId(requestId);
+            setName(name);
+            setQuantity(quantity);
+            setPrice(price);
+
     }
 
     //Setter and Getters

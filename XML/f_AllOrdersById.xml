@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE requests SYSTEM "./order.dtd">
+<requests>
+    <request>
+        <clientId>6</clientId>
+        <requestId>3</requestId>
+        <name>Mintaj</name>
+        <quantity>2</quantity>
+        <price>52.6</price>
+    </request>
+    <request>
+        <clientId>6</clientId>
+        <requestId>5</requestId>
+        <name>Dorsz</name>
+        <quantity>8</quantity>
+        <price>13.8</price>
+    </request>
+</requests>

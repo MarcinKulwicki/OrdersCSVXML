@@ -160,4 +160,20 @@ public class OrderServiceTest {
 
         assertEquals(11, orderList.size());
     }
+
+    @Test
+    public void filterOrdersByClientId() {
+        Order order1 = new Order("1", "1" , "Bułka", "1", "1.0");
+        Order order2 = new Order("1", "2" , "Noz", "4", "6.0");
+        Order order3 = new Order("2", "3" , "Jajko", "5", "7.0");
+        List<Order> orders = new ArrayList<>();
+        orders.add(order1);
+        orders.add(order2);
+        orders.add(order3);
+
+        OrderService orderService = new OrderService();
+
+        assertEquals(2,orderService.filterOrdersByClientId(orders, "1").size());
+        assertEquals("Noz", orderService.filterOrdersByClientId(orders, "1").get(1).getName());
+    }
 }

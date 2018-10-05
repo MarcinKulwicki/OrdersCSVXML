@@ -87,9 +87,9 @@ public class OrderService {
         }
     }
 
-    public List<Order> readXMLFile(String fileName) {
+    public List<Order> readXMLFile(String fileName){
 
-        if(validateXMLFile(fileName) == false) return null;
+        if(validateXMLFile(fileName) == false) return new ArrayList<>();
 
         String xml = convertXMLFileToString(fileName);
 
@@ -121,12 +121,13 @@ public class OrderService {
             while (scanner.hasNextLine()) {
                 sb.append(scanner.nextLine() + "\n");
             }
+            int begin = sb.toString().indexOf("<requests>");
+            int end = sb.toString().indexOf("</requests>");
+            return (sb.toString().substring(begin + 15, end - 1).replaceAll(" ", "").replaceAll("\n", ""));
         } catch (FileNotFoundException e) {
             System.out.println("File not found in OrderService->readXMLFile: " + e.getMessage());
         }
-        int begin = sb.toString().indexOf("<requests>");
-        int end = sb.toString().indexOf("</requests>");
-        return (sb.toString().substring(begin + 15, end - 1).replaceAll(" ", "").replaceAll("\n", ""));
+        return null;
     }
 
 
@@ -158,7 +159,7 @@ public class OrderService {
             parser.parse("./XML/" + xmlFileName + ".xml");
 
         } catch (Exception e) {
-            System.out.print("Problem parsing the file.");
+            System.out.print("Problem parsing the file - "+xmlFileName+".xml\n");
             return false;
         }
         return true;
@@ -206,12 +207,24 @@ public class OrderService {
         return orders;
     }
 
-    private List<Order> addOrdersToOrderList(List<Order> orders, List<Order> ordersFromFile) {
+    private List<Order> addOrdersToOrderList(List<Order> orders, List<Order> ordersFromFile){
         Iterator<Order> iterator = ordersFromFile.iterator();
         while (iterator.hasNext()){
             orders.add(iterator.next());
         }
         return orders;
+    }
+
+    //TODO do test!
+    public List<Order> filterOrdersByClientId(List<Order> orders, String clientId){
+        List<Order> orderList = new ArrayList<>();
+        Iterator<Order> it = orders.iterator();
+        while (it.hasNext()) {
+            Order order = it.next();
+            if (clientId.equalsIgnoreCase(order.getClientId() + ""))
+                orderList.add(order);
+        }
+        return orderList;
     }
 
 
