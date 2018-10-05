@@ -8,3 +8,6 @@ Hello World!
 important
 <mainClass>com.mycompany.app.App</mainClass>
 <id>app</id>
+
+
+git clone https://github.com/MarcinKulwicki/OrdersCSVXML.git && cd OrdersCSVXML && mvn package appassembler:assemble && sh target/appassembler/bin/compile

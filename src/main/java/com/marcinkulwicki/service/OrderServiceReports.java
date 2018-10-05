@@ -10,6 +10,12 @@ import java.util.Scanner;
 public class OrderServiceReports {
 
 
+    /**
+     * Function read file to String, read .csv and .xml file
+     * @param file Name of file with extension for example starter.csv or starter.xml
+     * @return All text in file
+     * @throws IOException If file don't exist
+     */
     public String readFileToString(String file) throws IOException {
         StringBuilder sb = new StringBuilder();
 
@@ -34,6 +40,12 @@ public class OrderServiceReports {
     Number of Orders
     ************************************
      */
+
+    /**
+     *
+     * @param orders All Orders
+     * @return Number of all orders
+     */
     public long numberOfAllOrders(List<Order> orders) {
         long counter = 0;
         for (Order order : orders) {
@@ -42,6 +54,12 @@ public class OrderServiceReports {
         return counter;
     }
 
+    /**
+     * Return all Orders for Client
+     * @param orders All Orders
+     * @param clientId
+     * @return Number of all orders
+     */
     public long numberOfAllOrders(List<Order> orders, String clientId) {
         long counter = 0;
         for (Order order : orders) {
@@ -51,10 +69,19 @@ public class OrderServiceReports {
         return counter;
     }
 
+    /**
+     * Display numbers of all orders
+     * @param counter as a parameter can get function numberOfAllOrders()
+     */
     public void showNumberOfAllOrders(long counter){
         System.out.println("Number of all Orders: "+counter);
     }
 
+    /**
+     * Save numbers of all orders to CSV file
+     * @param counter as a parameter can get function numberOfAllOrders()
+     * @param fileName Name of file (without extension)
+     */
     public void generateCSVNumberOfAllOrders(long counter, String fileName){
 
         try (FileWriter fileWriter = new FileWriter("./CSV/" + fileName + ".csv", false)){
@@ -66,6 +93,11 @@ public class OrderServiceReports {
         }
     }
 
+    /**
+     * Save numbers of all orders to XML file
+     * @param counter as a parameter can get function numberOfAllOrders()
+     * @param fileName Name of file (without extension)
+     */
     public void generateXMLNumberOfAllOrders(long counter, String fileName){
 
         try (FileWriter fileWriter = new FileWriter("./XML/" + fileName + ".xml", false)){
@@ -90,6 +122,12 @@ public class OrderServiceReports {
     Cost of Orders
     ************************************
      */
+
+    /**
+     *
+     * @param orders All Orders
+     * @return Cost of all Orders
+     */
     public Double costOfAllOrders(List<Order> orders) {
         Double counter = 0.0;
         for (Order order : orders) {
@@ -98,6 +136,12 @@ public class OrderServiceReports {
         return counter;
     }
 
+    /**
+     * Return all cost for client
+     * @param orders All Orders
+     * @param clientId Cient
+     * @return Cost of all Orders
+     */
     public Double costOfAllOrders(List<Order> orders, String clientId) {
         Double counter = 0.0;
         for (Order order : orders) {
@@ -107,10 +151,19 @@ public class OrderServiceReports {
         return counter;
     }
 
+    /**
+     * Display cost of All orders
+     * @param counter as a parameter can get function costOfAllOrders()
+     */
     public void showCostOfAllOrders(Double counter){
         System.out.println("Cost of all Orders: "+counter);
     }
 
+    /**
+     * Save cost of Orders to CSV file
+     * @param counter as a parameter can get function costOfAllOrders()
+     * @param fileName Name of file (without extension)
+     */
     public void generateCSVCostOfAllOrders(Double counter, String fileName){
 
         try (FileWriter fileWriter = new FileWriter("./CSV/" + fileName + ".csv", false)){
@@ -122,6 +175,11 @@ public class OrderServiceReports {
         }
     }
 
+    /**
+     * Save cost of Orders to XML file
+     * @param counter as a parameter can get function costOfAllOrders()
+     * @param fileName Name of file (without extension)
+     */
     public void generateXMLCostOfAllOrders(Double counter, String fileName){
 
         try (FileWriter fileWriter = new FileWriter("./XML/" + fileName + ".xml", false)){
@@ -147,6 +205,10 @@ public class OrderServiceReports {
     ************************************
      */
     //Not tested
+    /**
+     * Display all Orders
+     * @param orders All Orders
+     */
     public void showOrders(List<Order> orders) {
         Iterator<Order> it = orders.iterator();
         while (it.hasNext()) {
@@ -155,6 +217,12 @@ public class OrderServiceReports {
     }
 
     //Not tested
+
+    /**
+     * Display all Orders by Client
+     * @param orders All Orders
+     * @param clientId Client
+     */
     public void showOrders(List<Order> orders, String clientId) {
         Iterator<Order> it = orders.iterator();
         while (it.hasNext()) {
@@ -170,6 +238,13 @@ public class OrderServiceReports {
     Average Cost
     ************************************
      */
+
+    /**
+     *
+     * @param orders All orders
+     * @param requestId order number
+     * @return Average cost
+     */
     public Double averageCostOrder(List<Order> orders, String requestId) {
         Double counter = 0.0;
         int step = 0;
@@ -183,6 +258,13 @@ public class OrderServiceReports {
         return counter / step;
     }
 
+    /**
+     *
+     * @param orders All orders
+     * @param requestId order number
+     * @param clientId Client
+     * @return Average cost for client
+     */
     public Double averageCostOrder(List<Order> orders, String requestId, String clientId) {
         Double counter = 0.0;
         int step = 0;
@@ -198,10 +280,19 @@ public class OrderServiceReports {
         return counter / step;
     }
 
+    /**
+     * Display average cost of All orders
+     * @param counter as a parameter can get function averageCostOrder()
+     */
     public void showAverageCostOfAllOrders(Double counter){
         System.out.println("Average cost of all Orders: "+counter);
     }
 
+    /**
+     * Save average cost of Orders to CSV file
+     * @param counter as a parameter can get function averageCostOrder()
+     * @param fileName Name of file (without extension)
+     */
     public void generateCSVAverageCostOfAllOrders(Double counter, String fileName){
 
         try (FileWriter fileWriter = new FileWriter("./CSV/" + fileName + ".csv", false)){
@@ -213,6 +304,11 @@ public class OrderServiceReports {
         }
     }
 
+    /**
+     * Save average cost of Orders to XML file
+     * @param counter as a parameter can get function averageCostOrder()
+     * @param fileName Name of file (without extension)
+     */
     public void generateXMLAverageCostOfAllOrders(Double counter, String fileName){
 
         try (FileWriter fileWriter = new FileWriter("./XML/" + fileName + ".xml", false)){

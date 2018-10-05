@@ -18,7 +18,13 @@ import java.util.Scanner;
 
 public class OrderService {
 
-
+    /**
+     * Function takes parameters from CSV line, for example 1,1,Bułka,1,1 return 5 elements tab {"1","1","Bułka","1","1"}
+     * For Order.class
+     * @param line one line from CSV line
+     * @return order parameters
+     * @throws VerifyError When parameters have more or less then 5 parameters
+     */
     public String[] splitLineCSV(String line) throws VerifyError {
 
         String[] orderFromLine = line.split(",");
@@ -30,6 +36,11 @@ public class OrderService {
         return orderFromLine;
     }
 
+    /**
+     * Function read CSV file
+     * @param fileName Name of file (without extension)
+     * @return All orders in csv file
+     */
     public List<Order> readCSVFile(String fileName) {
 
         List<Order> orders = new ArrayList<>();
@@ -62,11 +73,22 @@ public class OrderService {
         return orders;
     }
 
+    /**
+     * Adding new Order to exist Orders
+     * @param orders All Orders
+     * @param order New Order
+     * @return List of Orders with new Order
+     */
     public List<Order> addOrderToList(List<Order> orders, Order order) {
         orders.add(order);
         return orders;
     }
 
+    /**
+     * Function generate new CSV file in ./CSV/ folder. If file exist, file will be replaced
+     * @param fileName Name of new file (without extension)
+     * @param orders List of all Orders with one must be added to new file
+     */
     public void generateCSVFileFromListOrders(String fileName, List<Order> orders) {
 
         try (FileWriter fileWriter = new FileWriter("./CSV/" + fileName + ".csv", false)) {
@@ -87,6 +109,11 @@ public class OrderService {
         }
     }
 
+    /**
+     * Function to read Orders from XML file
+     * @param fileName Name of file XML (without extension)
+     * @return List with all Orders
+     */
     public List<Order> readXMLFile(String fileName){
 
         if(validateXMLFile(fileName) == false) return new ArrayList<>();
@@ -111,6 +138,11 @@ public class OrderService {
         return orders;
     }
 
+    /**
+     * Function convert XML file to String, can be used to display xml file
+     * @param fileName Name of file (without extension)
+     * @return String when file will be found, null if file don't exist
+     */
     private String convertXMLFileToString(String fileName) {
 
         StringBuilder sb = new StringBuilder();
@@ -130,7 +162,11 @@ public class OrderService {
         return null;
     }
 
-
+    /**
+     * Function to validate XML file
+     * @param xmlFileName Name of file (without extension)
+     * @return When file is correct -> true
+     */
     public static boolean validateXMLFile(String xmlFileName) {
         try {
             DOMParser parser = new DOMParser();
@@ -165,6 +201,11 @@ public class OrderService {
         return true;
     }
 
+    /**
+     * Function to generate XML file from all Orders
+     * @param fileName Name of file (without extension)
+     * @param orders All Orders
+     */
     public void generateXMLFileFromListOrders(String fileName, List<Order> orders) {
 
         try (FileWriter fileWriter = new FileWriter("./XML/" + fileName + ".xml", false)){
@@ -191,6 +232,11 @@ public class OrderService {
         }
     }
 
+    /**
+     * Function get all file to read, extension is needed, function get .xml files and .csv
+     * @param args files .csv and .xml for example { starter.xml , starter.csv }
+     * @return All Orders from files
+     */
     public List<Order> loadFiles(List<String> args){
 
         List<Order> orders = new ArrayList<>();
@@ -207,7 +253,13 @@ public class OrderService {
         return orders;
     }
 
-    private List<Order> addOrdersToOrderList(List<Order> orders, List<Order> ordersFromFile){
+    /**
+     * Function to adding one list of Orders to other list of Orders
+     * @param orders Main list of Orders, this list will be increased
+     * @param ordersFromFile Orders with one you want add
+     * @return orders
+     */
+    public List<Order> addOrdersToOrderList(List<Order> orders, List<Order> ordersFromFile){
         Iterator<Order> iterator = ordersFromFile.iterator();
         while (iterator.hasNext()){
             orders.add(iterator.next());
@@ -215,7 +267,12 @@ public class OrderService {
         return orders;
     }
 
-    //TODO do test!
+    /**
+     * Function to get all orders by client
+     * @param orders All Orders to search
+     * @param clientId ID client
+     * @return All Orders by Client Id
+     */
     public List<Order> filterOrdersByClientId(List<Order> orders, String clientId){
         List<Order> orderList = new ArrayList<>();
         Iterator<Order> it = orders.iterator();
